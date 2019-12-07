@@ -1,0 +1,31 @@
+{% extends 'blog/basic.html' %}
+ {% block content %}
+ <!-- <small>  <input type="file" name="file" id="file"></small> -->
+ <br>
+ <diV class="container">
+    <img src="{{ user.profile.img.url}}" style="height:80px;width:80px;border-radius:50%;float:left;" alt="please upload">
+    <div style="margin-left:9vw;"> 
+    <h3>{{user.first_name}} {{user.last_name}}</h3>
+    <p>{{user.email}}</p>
+    </div>
+ 
+<br>
+<fieldset style="width:50%;">
+    <form  method="post">
+        {% csrf_token %}
+     
+        
+        
+        <br>
+        <a  href="{% url 'edit' %}" style="float:left;" class="btn btn-danger" >Update</a>
+    
+
+        
+        </form>
+        
+     
+        </form>
+</fieldset>
+</diV>
+<br><br>
+{% endblock  %}

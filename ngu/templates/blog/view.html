@@ -1,0 +1,40 @@
+{% extends 'blog/basic.html' %}
+{% block title%}{{title}}{% endblock%}
+{% block content %}
+  <div class="container">
+   
+      <h3  style="margin-left:10vw;"><a  >{{post.title}}</h3></a></h3>
+      <br>
+      <hr>
+      
+      <img src="{{ post.author.profile.img.url}}" style="height:70px;width:70px;border-radius:50%;float:left;" alt="please upload">
+      <p style="margin-left:8vw;font-family:Comic Sans MS;"> Written By {{post.author}} on {{post.date| date:"F d,Y"}}</p>
+      <p style="margin-left:10vw;font-family:Comic Sans MS;"><a href="#">{{post.author.email}}</a></p>
+
+      <hr>
+      <br>
+      <br>
+      <p >{{post.content}}</p>
+       {% if post.author == request.user %}
+      <a href="{% url 'post_edit' post.id  %}" class="btn btn-danger">Edit</a>
+      <a href="{% url 'post_delete' post.id %}" id='delete' class="btn btn-danger" style="float:right;">Delete</a>
+      {% endif %}
+      <h4>
+      <hr>
+      <form method="post">
+      {% csrf_token %}
+      {{comment_form.as_p}}
+         <input type="submit" class="btn btn-success" value="Comment">
+      </form>
+      {{ comment.count }} comment{{Comment|pluralize}}
+      <hr>
+       {% for i in comment %}
+       <blockquote class="blockquote">
+  <p class="mb-0" style="font-family:serif;font-size:18px;">{{i.content}}</p>
+  <footer class="blockquote-footer" style="color:#000;">By <cite title="Source Title">{{i.user|capfirst}}</cite></footer>
+</blockquote>
+       {% endfor%}
+    
+     </div>
+
+{% endblock  %}

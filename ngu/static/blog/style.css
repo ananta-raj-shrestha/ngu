@@ -1,0 +1,23 @@
+html{
+    scroll-behavior: smooth;
+}
+#myBtn {
+    display: none;
+    position: fixed;
+
+    right: 30px;
+    z-index: 99;
+   
+    border: none;
+  
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    bottom:20px;
+    border-radius: 4px;
+  }
+  
+  #myBtn:hover {
+    background-color: #555;
+  }
+

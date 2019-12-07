@@ -1,0 +1,17 @@
+{% extends 'blog/basic.html' %}
+{% block content%}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container">
+      
+            {{form.as_p}}
+           
+<input type="submit" class="btn btn-success" value="Update">
+
+<a href="{% url 'blog-index' %}" style="float:right;" class="btn btn-danger" >Cancel</a>
+
+</form>
+
+    </div>
+
+{% endblock%}

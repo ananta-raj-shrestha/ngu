@@ -1,0 +1,17 @@
+{% extends 'blog/basic.html' %}
+{% block content %}
+<div class="container">
+<form method="post">
+    {% csrf_token %}
+ <br>
+ <br>
+        {{form.as_p}}
+        <br>
+        <br>
+            <input type="submit" class="btn btn-outline-success"  value="Upload">
+            
+
+   
+</form>
+</div>
+{% endblock  %}

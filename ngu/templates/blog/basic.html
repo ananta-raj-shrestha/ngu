@@ -1,0 +1,146 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title%}{% endblock%}</title>
+   
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+           
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+      
+      $(document).ready(function(event) {
+        $('#delete').click(function()
+        {
+
+          return confirm('Are you sure to delete?');
+        });
+      });
+   
+    </script>
+  </head>
+
+  <body style=" font-family:Calibri;color:#fff;background-color:teal;">
+      
+      <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+
+      
+      <script>
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+      
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+      
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+      
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      </script>
+   
+        <nav  class="navbar navbar-expand-lg navbar-dark " style="background-color:#000; opacity:0.7;">
+                 <a class="navbar-brand" href="#">{% comment %}<img  style="width:50px;height:50px;border-radius:50%;" src="{% static 'blog/logo.jpg' %}">{% endcomment %}</a><i style="color:#fff;font-family:Serif;color:cyan;font-size:25px;">&copy;nguars.com.np</i> 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+       
+                    <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'blog-index' %}"><i class="fa fa-home"></i> Home </a>
+                    </li>
+                 
+                    {% block link %}
+                          {% endblock%}
+
+                  
+                             <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'blog-index' %}"><i class="fa fa-facebook"></i> Facebook </a>
+                    </li>
+                     <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'blog-index' %}"><i class="fa fa-twitter"></i> Twitter</a>
+                    </li>
+                        <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'blog-index' %}"><i class="fa fa-youtube"></i>Youtube </a>
+                    </li>
+                   
+              
+                     <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'blog-index' %}"><i class="fa fa-plus"></i> Linkden</a>
+                    </li>
+                  </ul>
+                                                    <form class="form-inline my-2 my-lg-0" action="{% url 'blog-index' %}">
+      <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
+    </form>
+                  <ul class="navbar-nav mr-5" >
+         <li class="nav-item">
+            {% if not user.is_authenticated %}
+                         <li class="nav-item">
+                            <a class="nav-link"   href="{% url 'register' %}"><i class="fa fa-user-plus "></i> Register</a>
+                          </li>
+                     <li class="nav-item">
+                            <a class="nav-link"   href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Login</a>
+                     </li>
+                          {% else %}
+                            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="{{ user.profile.img.url}}" style="height:40px;width:40px;float:left;border-radius:50%;"> {{user.first_name}}
+        </a>
+        <div class="dropdown-menu" style="width:3px;" aria-labelledby="navbarDropdown">
+
+          <a class="dropdown-item" href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a>
+        {% if user.username == 'nevergiveup'%}
+          <a class="dropdown-item" href="{% url 'post_upload' %}"><i class="fa fa-plus"></i>Add Post</a>
+        {% endif%}
+          <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out "></i>Logout</a>
+       
+      </li>
+                     
+                          
+                   {% endif%}
+                   </ul>
+              </nav>
+  {% if messages %}
+{%  for message in messages%}
+
+<div class="alert alert-{{message.tags}}">{{message}}</div>
+{% endfor %}
+{% endif %}
+{% block content %}
+
+       
+{% endblock%}
+ 
+
+   <div style="opacity:1.0;">
+
+    <i style="font-family:calibri;margin:15px;font-size:20px;display:block;text-align:center;" class="text-light">Developed by ananta raj shrestha,<i>&copy;2019</i> </i>
+    
+  
+</div>
+
+{% comment %} <a style="float:right;right:5px;text-decoration:none;background-color:black;font-size:20px;border-radius:50%;"href="#top">^</a> {% endcomment %}
+</body>
+
+</html>

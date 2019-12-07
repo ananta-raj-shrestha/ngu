@@ -1,0 +1,44 @@
+{% extends 'blog/basic.html' %}
+
+
+
+{% block content%}
+
+<div class="container">
+<form  method="post">
+{% csrf_token %}
+	
+<label>First Name:</label>
+<br>
+<input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" ><br>
+<label>Last Name:</label>
+<br>
+<input type="text" id="last_name" name="last_name" class="form-control" placeholder="First Name" ><br>
+<label>Username:</label>
+<br>
+<input type="text" id="username" name="username" class="form-control" placeholder="Username" ><br>
+<label>e-mail:</label>
+<br>
+    <input type ="text" id="email" name="email" class="form-control" placeholder="eg.anantarajshrestha@gmail.com" ><br>
+<label>Password:</label>
+<br>
+<input type="password" id ="password" name="password" class="form-control" placeholder="enter password" >
+<br>
+<label>Confirm Password:</label>
+<br>
+<input type="password" name="cpassword" class="form-control" placeholder="enter password" >
+
+
+
+<br>
+<input type="submit" class="btn btn-success" name="submit" value="Sign In">
+
+</form>
+
+<small style="font-size:20px;">
+    Already have an account? <a href="{% url 'login'%}">Sign Up</a>
+</small>
+</form>
+
+</div>
+{% endblock%}

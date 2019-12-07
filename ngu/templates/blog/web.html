@@ -1,0 +1,174 @@
+{% extends 'blog/basic.html' %}
+{% block title%}
+{% if title %}
+{{title}}
+{% else %}
+anantarajshrestha.com.np
+{% endif%}
+{% endblock%}
+{% comment %} {% block css%}
+    .body
+{
+   font-family:Calibri;
+   color:#fff;
+   background-image:url('static/blog/1.jpg'); 
+    background-repeat: no-repeat; 
+     background-attachment: fixed;
+     background-size: cover;
+     background-color:teal;
+     opacity:0.5;
+}
+{% endblock%} {% endcomment %}
+
+{% block link%}
+   <li class="nav-item">
+                      <a class="nav-link" href="#section2"><i class="fa fa-info-circle "></i>About</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="#section3"><i class="fa fa-phone"></i>Contact</a>
+                          </li>
+{% endblock%}
+
+{% block content%}
+
+<div style="background-color:rgba(0, 128, 128, 0.774);">
+<div   class="container">
+<hr>
+<h3 style="font-family:serif;text-align:center;"><i>Posts</i></h3>
+<hr>
+  <br>
+  <br>
+    <div id="section1" style="height:auto;">
+        <fieldset style="float:right;width:30%;text-align:center;">
+  <h4> Latest Post</h4>
+  <hr>
+  {% for i in posts %}
+  <a href="#post{{i}}">{{ i.title}}</a>
+  <br>
+  
+  {% endfor %}
+  <hr>
+</fieldset>
+  <div style="width:70%;">
+     <div style="width:70%;">
+      {% for i in posts%}
+          
+      <h3 id="post{{i}}" ><a  href="{% url 'view' i.id  %}">{{i.title}}</h3></a></h3>
+      <br>
+      <img src="{{ i.author.profile.img.url}}" style="height:50px;width:50px;border-radius:50%;float:left;" alt="please upload">
+      <p>By {{i.author}} on {{i.date| date:"F d,Y"}}</p>
+      <p >      {{i.content}}</p>
+     
+      <hr>
+      
+      <h4>
+      {% empty%}
+      <div>
+      <h3>No result found for searching "{{request.GET.q}}"!!</h3>
+      </div>
+      {% endfor%}
+    
+      
+     </div>
+
+ 
+ 
+     <nav >
+  <ul class="pagination">
+   {% if posts.has_previous %}
+ <li class="page-item"><a class="page-link" href="?page={{posts.previous_page_number}}">&laquo;</a></li>
+ {% endif%}
+ {% for p in posts.paginator.page_range%}
+
+  {% if posts.number == p %}
+    <li class="page-item active"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+   {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+   {% endif%}
+    {% endfor%}
+      {% if posts.has_next %}
+ <li class="page-item"><a class="page-link" href="?page={{posts.next_page_number}}">&raquo;</a></li>
+ {% endif%}
+  </ul>
+  
+</nav>
+</div>
+
+   
+
+
+   
+  
+</div>
+<div id="section2"  style="height:auto;">
+    <hr>
+    <h3 style="font-family:serif;text-align:center;"><i>About Us</i></h3>
+    <hr>
+    <pre style="text-align:justify;margin-left:10vw;font-family:serif;color:#000;font-size:17px;" ><i>
+Personal Details
+Name : Ananta Raj Shrestha
+Date of Birth : 2000/04/23
+Father’s Name : Harkha Man Shrestha
+Mother’s Name : Nir Maya Shrestha
+Gender : Male
+Language Known : English, Nepali, Hindi, Newari
+Marital Status : Unmarried
+Address : Bhimad Municipality-8,Rangrung, Tanahun, Nepal
+Mobile Number : 9806617945
+Email : https://anantarajshrestha@gmail.com
+Web :  http://anantarajshrestha.com.np
+Academic Qualification
+S.N.     Level      School/College Name                                       Board                             Passed Year   
+1.         SLC         Shree Himalaya Higher Secondary School        Gov. of Nepal                  2015            
+2.         +2            Panchamunidev Secondary School                    HSEB Board                    2017            
+3.         BE           Pashchimanchal Campus                                    Trivuban University        Running      
+Technical Qualification
+- Excellent in Object Oriented Programming (C++)
+- Wordpress Web Developer
+- Fluent in HTML,CSS,JS
+- Perfect in Bootstrap,Php
+- Deep Learning in Python
+- Django Web Developer
+Experience
+- Science Teacher from 2016 to 2017
+- Involving in Literature Field from 2012</i></pre><br><br></div>
+    <div id="section3"  style="height:auto;"><hr>
+    <h3 style="font-family:serif;text-align:center;"><i>Contact Us</i></h3>
+    <hr>
+    <form  class="was-validated" method="post">
+ {% csrf_token %}
+                <div class="form-group">
+                  <label style="color:azure;" for="name">
+                      Name:</label>
+                  <input type="name" class="form-control " id="name" name="name"  placeholder="Name"required>
+                  <div class="valid-feedback">Valid.</div>
+                  
+                </div>
+                <div class="form-group">
+                  <label style="color:azure;" for="email">
+                        E-mail:</label>
+                  <input type="email" class="form-control " id="email" name="email" placeholder="email" required>
+                  <div class="valid-feedback">Valid.</div>
+                  
+                </div>
+                <div class="form-group">
+                  <label style="color:azure;" for="comment">
+                        Comment:</label>
+                <textarea name="comment" id="comment"  rows="10" style="width:100%;box-sizing: border-box;" class="form-control " placeholder='write your feedback..' required></textarea>
+                  <div class="valid-feedback">Valid.</div>
+                  
+                </div>
+                <div class="form-group form-check">
+                  <label  style="color:azure;" class="form-check-label">
+                    <input class="form-check-input " type="checkbox"  required>
+                  <a href="#" style="text-decoration:none;color:white;">  Accept the Privacy Policy</a>
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">
+                        Send</button>
+              </form></div>
+</div>
+
+
+
+{% endblock%}
