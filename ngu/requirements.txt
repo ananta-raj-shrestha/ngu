@@ -1,5 +1,5 @@
 altgraph==0.16.1
-Django==2.2.7
+Django==2.2.13
 future==0.17.1
 macholib==1.11
 mysql-connector==2.2.9
